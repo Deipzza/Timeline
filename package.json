@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "node index.js",
+    "start-watch": "nodemon index.js",
+    "dev": "concurrently \"cd .\\root\\server && npm run dev\" \"cd .\\root\\client && npm start\" "
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1",
+    "nodemon": "^2.0.22"
+  }
+}
