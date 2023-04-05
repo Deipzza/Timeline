@@ -5,13 +5,12 @@ const Item = require('../models/item');
 // List all items
 router.get('/', async (req, res) => {
   const items = await Item.find({});
-  console.log(items);
   res.json(items);
 });
 
 // Add items
 router.post('/', async (req, res) => {
-  if(req.body.large_description && req.body.short_description && req.body.date) {
+  if(req.body.largeDescription && req.body.shortDescription && req.body.date) {
     await Item.create(req.body);
     res.json({status: 'Item saved'});
   } else {
