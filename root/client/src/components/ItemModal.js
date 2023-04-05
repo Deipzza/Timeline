@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-// import axios from 'axios';
 
-const Input = ({ getItems }) => {
+const ItemModal = ({ active, handleModal }) => {
   const [largeDescription, setLargeDescription] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [date, setDate] = useState("");
   
+  const cleanFormData = () => {
+    setLargeDescription("");
+    setShortDescription("");
+    setDate("");
+  }
+
   const addItem = async () => {
     const item = {
       largeDescription,
@@ -24,14 +29,21 @@ const Input = ({ getItems }) => {
       };
   
       const response = await fetch("/api/items", requestOptions);
-      await response.json();
+      // await response.json();
+
+      if(!response.ok) {
+        // setErrorMessage("Something went wrong when creating the skill");
+      } else {
+        cleanFormData(); // Clean the form data
+        handleModal(); // Close the modal window
+      }
     } else {
       console.log('Input fields required');
     }
   };
 
   return (
-    <div>
+    <div className="invisible">
       <h1>Add Item to Timeline</h1>
         <div>
           <label>Large description</label>
@@ -76,4 +88,4 @@ const Input = ({ getItems }) => {
   );
 }
 
-export default Input;
+export default ItemModal;
