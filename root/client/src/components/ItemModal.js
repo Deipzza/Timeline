@@ -43,7 +43,7 @@ const ItemModal = ({ active, handleModal }) => {
   };
 
   return (
-    <div className="invisible">
+    <div className={active ? "visible" : "invisible hidden"}>
       <h1>Add Item to Timeline</h1>
         <div>
           <label>Large description</label>
