@@ -4,7 +4,7 @@ import Timeline from './components/Timeline';
 const  App = () => {
 
   return (
-    <div>
+    <div className='app'>
       <Header title="My timeline!" />
       <Timeline />
     </div>

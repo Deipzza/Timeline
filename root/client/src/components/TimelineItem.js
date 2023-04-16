@@ -1,22 +1,24 @@
-const TimelineItem = ({ data, key }) => {
+const TimelineItem = ({ data, keyValue }) => {
   const formatedData = {
     shortDescription: data.shortDescription,
     largeDescription: data.largeDescription,
     date: new Date(data.date).toLocaleString(),
   };
 
+  const buttonStyling = "px-3 py-1.5 border mb-5 border-blue-500 bg-blue-500 text-white rounded";
+
   return (
-    <div>
-      <ol className="relative border-l border-gray-200 dark:border-gray-700">
-        <li key={key} className="mb-10 ml-6">
-          <h3 className="flex items-center z-0 mb-1 text-lg font-semibold text-gray-900 dark:text-white">{formatedData.shortDescription}</h3>
-          <time className="block z-0 mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{formatedData.date.toLocaleString()}</time>
-          <p className="z-0">{formatedData.largeDescription}</p>
-          
+    <>
+      <li key={keyValue} className="mb-10 ml-6">
+        <div className="z-0">
+          <h3 className="text-lg font-bold mb-1">{formatedData.shortDescription}</h3>
+          <time className="text-gray-500 text-sm mb-2">{formatedData.date.toLocaleString()}</time>
+          <p className="text-gray-700">{formatedData.largeDescription}</p>
           <span className="circle" />
-        </li>
-      </ol>
-    </div>
+          <button className={buttonStyling}>Actualizar</button>
+        </div>
+      </li>
+    </>
   );
 }
 
