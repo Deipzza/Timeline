@@ -8,15 +8,33 @@ const ItemModal2 = ({ handleModal, buttonStyling, id }) => {
   const inputs = [
     {
       title: "Large description",
-      render: <input className="input bg-gray-200 p-1" type="text" placeholder='Enter the large description'></input>
+      render: <input
+        className="input bg-gray-200 p-1"
+        type="text"
+        placeholder='Enter the large description'
+        value={largeDescription}
+        onChange={(e) => setLargeDescription(e.target.value)}
+      />
     },
     {
       title: "Short description",
-      render: <input className="input bg-gray-200 p-1" type="text" placeholder='Enter the short description'></input>
+      render: <input
+        className="input bg-gray-200 p-1"
+        type="text"
+        placeholder='Enter the short description'
+        value={shortDescription}
+        onChange={(e) => setShortDescription(e.target.value)}
+      />
     },
     {
       title: "Date",
-      render: <input className="input bg-gray-200 p-1" type="date" placeholder='Enter the date'></input>
+      render: <input
+        className="input bg-gray-200 p-1"
+        type="date"
+        placeholder='Enter the date'
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+      />
     },
   ];
 
@@ -41,10 +59,10 @@ const ItemModal2 = ({ handleModal, buttonStyling, id }) => {
         }
       )
     };
-    const response = await fetch("/api/skills", requestOptions);
+    const response = await fetch("/api/items", requestOptions);
 
     if(!response.ok) {
-      
+      console.log("algo salio mal")
     } else {
       cleanFormData(); // Clean the form data
       handleModal(); // Close the modal window
@@ -52,12 +70,33 @@ const ItemModal2 = ({ handleModal, buttonStyling, id }) => {
   }
   
   const handleUpdateItem = async (event) => {
+    event.preventDefault();
+    const requestOptions = {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(
+        {
+          largeDescription: largeDescription,
+          shortDescription: shortDescription,
+          date: date,
+        }
+      )
+    };
+    const response = await fetch(`/api/items/${id}`, requestOptions);
 
+    if(!response.ok) {
+      // Something went wrong
+    } else {
+      cleanFormData(); // Clean the form data
+      handleModal(); // Close the modal window
+    }
   }
 
-  // Helper function for getting the skill to update
+  // Helper function for getting the item to update
   useEffect(() => {
-    const getSkill = async () => {
+    const getItem = async () => {
       const requestOptions = {
         method: 'GET',
         headers: {
@@ -65,7 +104,7 @@ const ItemModal2 = ({ handleModal, buttonStyling, id }) => {
         }
       };
 
-      const response = await fetch(`/api/skills/${id}`, requestOptions)
+      const response = await fetch(`/api/items/${id}`, requestOptions)
 
       if(!response.ok) {
         // Something went wrong
@@ -78,7 +117,8 @@ const ItemModal2 = ({ handleModal, buttonStyling, id }) => {
     }
 
     if(id) {
-      getSkill();
+      console.log("id1: " + id);
+      getItem();
     }
   }, [id])
 
@@ -105,12 +145,13 @@ const ItemModal2 = ({ handleModal, buttonStyling, id }) => {
           </form>
 
           <div className='flex items-center justify-between'>
+            {console.log("id2: " + id)}
             {id ? (
-              <button className={`${buttonStyling} `} onClick={handleUpdateItem}>Actualizar</button>
+              <button className={`${buttonStyling} `} onClick={handleUpdateItem}>Update</button>
             ) : (
-              <button className={`${buttonStyling} `} onClick={handleCreateItem}>Actualizar</button>
+              <button className={`${buttonStyling} `} onClick={handleCreateItem}>Create</button>
             )}
-            <button className={buttonStyling} onClick={handleModal}>Cerrar</button>
+            <button className={buttonStyling} onClick={handleModal}>Cancel</button>
           </div>
         </div>
       </div>

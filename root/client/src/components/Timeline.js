@@ -14,8 +14,9 @@ const Timeline = () => {
     setId(null);
   }
 
-  const handleUpdate = async (id) => {
-    setId(id);
+  const handleUpdate = async (idd) => {
+    setId(idd);
+    console.log("id update: " + id);
     setActiveModal(true);
   }
 
@@ -75,8 +76,9 @@ const Timeline = () => {
         <div>
           {activeModal && (
             <ItemModal2
-            handleModal={handleModal}
-            buttonStyling={buttonStyling}
+              handleModal={handleModal}
+              buttonStyling={buttonStyling}
+              id={id}
             />
           )}
         </div>,
@@ -87,14 +89,25 @@ const Timeline = () => {
         {items ? (
           <div className='mx-10 z-0'>
             <ul className="relative z-0 border-l-8 border-blue-500 ">
-              {items.map((item, idx) => (
-                <TimelineItem 
-                  data={item}
-                  id={item.id}
-                  keyValue={idx}
-                  handleUpdate={() => handleUpdate(item.id)}
-                  handleDelete={() => handleDelete(item.id)}
-                />
+              {items.map((item) => (
+                // <TimelineItem 
+                //   data={item}
+                //   id={item.id}
+                //   keyValue={item.id}
+                //   handleUpdate={() => handleUpdate(item.id)}
+                //   // handleUpdate={handleUpdate}
+                //   handleDelete={() => handleDelete(item.id)}
+                // />
+                <li key={item.id} className="mb-10 ml-6">
+                  <div className="z-0">
+                    <h3 className="text-lg font-bold mb-1">{item.shortDescription}</h3>
+                    <time className="text-gray-500 text-sm mb-2">{item.date.toLocaleString()}</time>
+                    <p className="text-gray-700">{item.largeDescription}</p>
+                    <span className="circle" />
+                    <button className={buttonStyling} onClick={() => handleUpdate(item.id)}>Update</button>
+                    <button className={buttonStyling} onClick={handleDelete}>Delete</button>
+                  </div>
+                </li>
               ))}
             </ul>
           </div>

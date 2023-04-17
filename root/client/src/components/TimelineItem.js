@@ -1,4 +1,4 @@
-const TimelineItem = ({ data, keyValue }) => {
+const TimelineItem = ({ data, id, keyValue, handleUpdate, handleDelete }) => {
   const formatedData = {
     shortDescription: data.shortDescription,
     largeDescription: data.largeDescription,
@@ -15,7 +15,8 @@ const TimelineItem = ({ data, keyValue }) => {
           <time className="text-gray-500 text-sm mb-2">{formatedData.date.toLocaleString()}</time>
           <p className="text-gray-700">{formatedData.largeDescription}</p>
           <span className="circle" />
-          <button className={buttonStyling}>Actualizar</button>
+          <button className={buttonStyling} onClick={() => handleUpdate(id)}>Update</button>
+          <button className={buttonStyling} onClick={handleDelete}>Delete</button>
         </div>
       </li>
     </>

@@ -8,6 +8,12 @@ router.get('/', async (req, res) => {
   res.json(items);
 });
 
+// List one item
+router.get('/:id', async (req, res) => {
+  const item = await Item.findById(req.params.id);
+  res.json(item);
+});
+
 // Add items
 router.post('/', async (req, res) => {
   if(req.body.largeDescription && req.body.shortDescription && req.body.date) {
