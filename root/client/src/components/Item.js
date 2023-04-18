@@ -5,7 +5,7 @@ import ListItems from './ListItems';
 const Item = () => {
   const [largeDescription, setLargeDescription] = useState("");
   const [shortDescription, setShortDescription] = useState("");
-  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
   const [items, ] = useState([]);
 
   const getItems = async () => {
@@ -28,7 +28,7 @@ const Item = () => {
     const item = {
       largeDescription,
       shortDescription,
-      date,
+      time,
     };
 
     const requestOptions = {

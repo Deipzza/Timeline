@@ -1,6 +1,7 @@
 const express = require('express');
-const router = express.Router();
 const Item = require('../models/item');
+
+const router = express.Router();
 
 // List all items
 router.get('/', async (req, res) => {
@@ -16,7 +17,7 @@ router.get('/:id', async (req, res) => {
 
 // Add items
 router.post('/', async (req, res) => {
-  if(req.body.largeDescription && req.body.shortDescription && req.body.date) {
+  if(req.body.largeDescription && req.body.shortDescription && req.body.time) {
     await Item.create(req.body);
     res.json({status: 'Item saved'});
   } else {
@@ -27,7 +28,7 @@ router.post('/', async (req, res) => {
 // Update one item
 router.put('/:id', async(req, res) => {
   await Item.findByIdAndUpdate(req.params.id, req.body);
-  res.json({status: 'Item deleted'});
+  res.json({status: 'Item updated'});
 });
 
 // Delete one item

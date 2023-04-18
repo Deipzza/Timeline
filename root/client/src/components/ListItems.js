@@ -10,7 +10,7 @@ const ListItems = ({ items, updateItem }) => {
               <li key={item._id} onClick={() => updateItem(item._id)}>
                 <h3>{item.largeDescription}</h3>
                 <p>{item.shortDescription}</p>
-                <p>{item.date}</p>
+                <p>{item.time}</p>
               </li>
             </ul>
           );

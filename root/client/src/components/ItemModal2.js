@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const ItemModal2 = ({ handleModal, buttonStyling, id }) => {
   const [largeDescription, setLargeDescription] = useState("");
   const [shortDescription, setShortDescription] = useState("");
-  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
 
   const inputs = [
     {
@@ -27,13 +27,12 @@ const ItemModal2 = ({ handleModal, buttonStyling, id }) => {
       />
     },
     {
-      title: "Date",
+      title: "Time",
       render: <input
         className="input bg-gray-200 p-1"
-        type="date"
-        placeholder='Enter the date'
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
+        type="time"
+        value={time}
+        onChange={(e) => setTime(e.target.value)}
       />
     },
   ];
@@ -41,7 +40,7 @@ const ItemModal2 = ({ handleModal, buttonStyling, id }) => {
   const cleanFormData = () => {
     setLargeDescription("");
     setShortDescription("");
-    setDate("");
+    setTime("");
   }
 
   const handleCreateItem = async (event) => {
@@ -55,7 +54,7 @@ const ItemModal2 = ({ handleModal, buttonStyling, id }) => {
         {
           largeDescription: largeDescription,
           shortDescription: shortDescription,
-          date: date,
+          time: time,
         }
       )
     };
@@ -80,7 +79,7 @@ const ItemModal2 = ({ handleModal, buttonStyling, id }) => {
         {
           largeDescription: largeDescription,
           shortDescription: shortDescription,
-          date: date,
+          time: time,
         }
       )
     };
@@ -112,7 +111,7 @@ const ItemModal2 = ({ handleModal, buttonStyling, id }) => {
         const data = await response.json();
         setLargeDescription(data.largeDescription);
         setShortDescription(data.shortDescription);
-        setDate(data.date);
+        setTime(data.time);
       }
     }
 

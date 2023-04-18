@@ -31,10 +31,10 @@ const Timeline = () => {
     const response = await fetch(`/api/items/${id}`, requestOptions);
 
     if(!response.ok) {
-      
+      // Something went wrong
+    } else {
+      await getItems();
     }
-
-    await getItems();
   };
 
   const getItems = async () => {
@@ -52,9 +52,9 @@ const Timeline = () => {
     } else {
       const data = await response.json();
 
-      // Sort items by date ascending
+      // Sort items by time ascending
       const sortedData = data.sort(
-        (p1, p2) => (p1.date > p2.date) ? 1 : (p1.date < p2.date) ? -1 : 0);
+        (p1, p2) => (p1.time > p2.time) ? 1 : (p1.time < p2.time) ? -1 : 0);
 
       setItems(sortedData);
     }
@@ -86,33 +86,33 @@ const Timeline = () => {
       )}
 
       <div className='timeline-items'>
-        {items ? (
+        {items?.length > 0 ? (
           <div className='mx-10 z-0'>
+            
             <ul className="relative z-0 border-l-8 border-blue-500 ">
               {items.map((item) => (
-                // <TimelineItem 
-                //   data={item}
-                //   id={item.id}
-                //   keyValue={item.id}
-                //   handleUpdate={() => handleUpdate(item.id)}
-                //   // handleUpdate={handleUpdate}
-                //   handleDelete={() => handleDelete(item.id)}
-                // />
-                <li key={item.id} className="mb-10 ml-6">
-                  <div className="z-0">
-                    <h3 className="text-lg font-bold mb-1">{item.shortDescription}</h3>
-                    <time className="text-gray-500 text-sm mb-2">{item.date.toLocaleString()}</time>
-                    <p className="text-gray-700">{item.largeDescription}</p>
-                    <span className="circle" />
-                    <button className={buttonStyling} onClick={() => handleUpdate(item.id)}>Update</button>
-                    <button className={buttonStyling} onClick={handleDelete}>Delete</button>
-                  </div>
-                </li>
+                <TimelineItem 
+                  data={item}
+                  // id={item._id}
+                  keyValue={item._id}
+                  handleUpdate={handleUpdate}
+                  handleDelete={handleDelete}
+                />
+                // <li key={item.id} className="mb-10 ml-6">
+                //   <div className="z-0">
+                //     <h3 className="text-lg font-bold mb-1">{item.shortDescription}</h3>
+                //     <time className="text-gray-500 text-sm mb-2">{item.time}</time>
+                //     <p className="text-gray-700">{item.largeDescription}</p>
+                //     <span className="circle" />
+                //     <button className={buttonStyling} onClick={() => handleUpdate(item._id)}>Update</button>
+                //     <button className={buttonStyling} onClick={() => handleDelete(item._id)}>Delete</button>
+                //   </div>
+                // </li>
               ))}
             </ul>
           </div>
           ) : (
-          <p>You don't have items yet. Add one!</p>
+          <p className='mb-10 ml-6'>You don't have items yet. Add one!</p>
         )}
       </div>
     </div>
