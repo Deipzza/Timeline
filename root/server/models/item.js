@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const ItemSchema = new Schema({
   largeDescription: {type: String, required: true},
   shortDescription: {type: String, required: true},
-  time : {type: String, required: true}
+  date : {type: Date, required: true}
 });
 
 // Create Model

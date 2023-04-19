@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import TimelineItem from './TimelineItem';
-import ItemModal2 from './ItemModal2';
+import ItemModal from './ItemModal';
 import { createPortal } from 'react-dom';
 
 const Timeline = () => {
@@ -14,9 +14,8 @@ const Timeline = () => {
     setId(null);
   }
 
-  const handleUpdate = async (idd) => {
-    setId(idd);
-    console.log("id update: " + id);
+  const handleUpdate = async (id) => {
+    setId(id);
     setActiveModal(true);
   }
 
@@ -31,7 +30,7 @@ const Timeline = () => {
     const response = await fetch(`/api/items/${id}`, requestOptions);
 
     if(!response.ok) {
-      // Something went wrong
+      console.log("Something went wrong with the delete");
     } else {
       await getItems();
     }
@@ -48,13 +47,14 @@ const Timeline = () => {
     const response = await fetch("/api/items", requestOptions);
     
     if(!response.ok) {
-
+      console.log("Something went wrong with the creation");
     } else {
       const data = await response.json();
 
-      // Sort items by time ascending
+      // Sort items by date ascending
       const sortedData = data.sort(
-        (p1, p2) => (p1.time > p2.time) ? 1 : (p1.time < p2.time) ? -1 : 0);
+        (p1, p2) => (p1.date > p2.date) ? 1 : (p1.date < p2.date) ? -1 : 0
+      );
 
       setItems(sortedData);
     }
@@ -75,7 +75,7 @@ const Timeline = () => {
       {createPortal(
         <div>
           {activeModal && (
-            <ItemModal2
+            <ItemModal
               handleModal={handleModal}
               buttonStyling={buttonStyling}
               id={id}
@@ -89,25 +89,14 @@ const Timeline = () => {
         {items?.length > 0 ? (
           <div className='mx-10 z-0'>
             
-            <ul className="relative z-0 border-l-8 border-blue-500 ">
+            <ul className="relative z-0 border-l-4 border-gray-500 ">
               {items.map((item) => (
                 <TimelineItem 
                   data={item}
-                  // id={item._id}
                   keyValue={item._id}
                   handleUpdate={handleUpdate}
                   handleDelete={handleDelete}
                 />
-                // <li key={item.id} className="mb-10 ml-6">
-                //   <div className="z-0">
-                //     <h3 className="text-lg font-bold mb-1">{item.shortDescription}</h3>
-                //     <time className="text-gray-500 text-sm mb-2">{item.time}</time>
-                //     <p className="text-gray-700">{item.largeDescription}</p>
-                //     <span className="circle" />
-                //     <button className={buttonStyling} onClick={() => handleUpdate(item._id)}>Update</button>
-                //     <button className={buttonStyling} onClick={() => handleDelete(item._id)}>Delete</button>
-                //   </div>
-                // </li>
               ))}
             </ul>
           </div>

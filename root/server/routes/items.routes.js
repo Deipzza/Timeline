@@ -17,7 +17,7 @@ router.get('/:id', async (req, res) => {
 
 // Add items
 router.post('/', async (req, res) => {
-  if(req.body.largeDescription && req.body.shortDescription && req.body.time) {
+  if(req.body.largeDescription && req.body.shortDescription && req.body.date) {
     await Item.create(req.body);
     res.json({status: 'Item saved'});
   } else {
