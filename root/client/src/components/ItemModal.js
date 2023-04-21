@@ -47,6 +47,7 @@ const ItemModal = ({ handleModal, buttonStyling, id }) => {
     },
   ];
 
+  // Resets the inputs when the modal/form is closed or sent.
   const cleanFormData = () => {
     setLargeDescription("");
     setShortDescription("");
@@ -124,10 +125,9 @@ const ItemModal = ({ handleModal, buttonStyling, id }) => {
     }
   }
 
+  // Format date.
   const parseDateTime = (date, time) => {
-    let newDate = new Date(date);
-    newDate.setHours(time.split(':')[0]);
-    newDate.setMinutes(time.split(':')[1]);
+    let newDate = new Date(date + "T" + time + ":00.000Z");
     return newDate.toLocaleString();
   }
 
@@ -149,17 +149,19 @@ const ItemModal = ({ handleModal, buttonStyling, id }) => {
         const data = await response.json();
         setLargeDescription(data.largeDescription);
         setShortDescription(data.shortDescription);
-        setDate(data.date.split('T')[0]);
-        const hour = data.date.split('T')[1].split('.')[0].slice(0, -3);
+        setDate(data.date.split('T')[0].toLocaleString());
+        const hour = data.date.split('T')[1].split('.')[0].slice(0, -3).toString();
         setTime(hour);
       }
     }
 
+    // Checks if it's an updating item.
     if(id) {
       getItem();
     }
   }, [id])
 
+  // Disable scrolling when modal is opened.
   useEffect(() => {
     document.body.classList.add('overflow-hidden')
 

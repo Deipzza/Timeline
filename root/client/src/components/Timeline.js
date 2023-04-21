@@ -8,6 +8,7 @@ const Timeline = () => {
   const [items, setItems] = useState(null);
   const [activeModal, setActiveModal] = useState(false);
 
+  // Activates and deactivates the modal.
   const handleModal = async () => {
     setActiveModal(!activeModal);
     await getItems();
@@ -51,7 +52,7 @@ const Timeline = () => {
     } else {
       const data = await response.json();
 
-      // Sort items by date ascending
+      // Sort items by date ascending.
       const sortedData = data.sort(
         (p1, p2) => (p1.date > p2.date) ? 1 : (p1.date < p2.date) ? -1 : 0
       );
