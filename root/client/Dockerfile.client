@@ -1,0 +1,13 @@
+FROM node:18
+
+WORKDIR /app/client
+
+COPY ./package.json /app/client/package.json
+
+RUN npm install
+
+COPY . /app/client
+
+RUN npm run build
+
+CMD ["npm", "start"]
